@@ -24,7 +24,7 @@ function Signup() {
   return (
     <>
       <Helmet>
-        <title>Forms - Components</title>
+        <title>User - Registeration</title>
       </Helmet>
      
       <Container maxWidth="lg">
