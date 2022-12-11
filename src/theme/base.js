@@ -1,9 +1,19 @@
-import { NebulaFighterTheme } from './schemes/NebulaFighterTheme';
+
+// Dark Theme
+import { Dark } from './schemes/Dark';
+
+
+
+// White Theme
+import {Light } from './schemes/Light';
+
+
 
 export function themeCreator(theme) {
-  return themeMap[theme];
+  return ThemesList[theme];
 }
 
-const themeMap = {
-  NebulaFighterTheme
+const ThemesList = {
+  Dark: Dark,
+  Light: Light
 };

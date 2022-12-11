@@ -11,7 +11,6 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { CssBaseline } from '@mui/material';
 
 
-
 // Import Customized Components
 import ThemeProvider from './theme/ThemeProvider';
 
