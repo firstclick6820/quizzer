@@ -81,36 +81,38 @@ function Hero() {
       >
         <Grid item md={10} lg={8} mx="auto">
           <LabelWrapper color="success">Sell Your Skill</LabelWrapper>
+
           <TypographyH1 sx={{ mb: 2 }} variant="h1">
             Quizzer
           </TypographyH1>
+
           <TypographyH2
             sx={{ lineHeight: 1.5, pb: 4 }}
             variant="h4"
             color="text.secondary"
-            fontWeight="normal"
-          >
+            fontWeight="normal">
             Fast growing platform to engage with People, grow your skills, become more productivy and sell your skills.
           </TypographyH2>
-          <Button
-            component={RouterLink}
-            to="/dashboards/tasks"
-            size="large"
-            variant="contained"
-          >
-            Sing in
-          </Button>
-          <Button
-            sx={{ ml: 2 }}
-            component="a"
-            target="_blank"
-            rel="noopener"
-            href="https://bloomui.com/product/tokyo-free-black-react-javascript-material-ui-admin-dashboard"
-            size="large"
-            variant="text"
-          >
-            Sign up
-          </Button>
+
+          <Box display='flex' justifyContent="center" gap={2}>
+            <Button
+              component={RouterLink}
+              to="/auth/login"
+              size="large"
+              variant="outlined">
+              Sing in
+            </Button>
+            
+            <Button
+              component={RouterLink}
+              to="/auth/signup"
+              size="large"
+              variant="outlined">
+              Signup
+            </Button>
+          </Box>
+
+
           <Grid container spacing={3} mt={5}>
             <Grid item md={6}>
               <MuiAvatar>

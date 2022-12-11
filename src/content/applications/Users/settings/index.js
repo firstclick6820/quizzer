@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import PageHeader from './PageHeader';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Container, Tabs, Tab, Grid } from '@mui/material';
-import Footer from 'src/components/Footer';
+
 import { styled } from '@mui/material/styles';
 
 
@@ -42,14 +42,14 @@ function ManagementUserSettings() {
   return (
     <>
       <Helmet>
-        <title>User Settings - Applications</title>
+        <title>Account Settings</title>
       </Helmet>
 
       <PageTitleWrapper>
         <PageHeader />
       </PageTitleWrapper>
 
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" >
 
         <Grid
           container
@@ -81,8 +81,7 @@ function ManagementUserSettings() {
           </Grid>
         </Grid>
       </Container>
-      
-      <Footer />
+
     </>
   );
 }

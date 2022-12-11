@@ -17,6 +17,11 @@ const Loader = (Component) => (props) =>
 
 const Overview = Loader(lazy(() => import('src/content/overview')));
 
+
+
+// Authentications
+const Login = Loader(lazy(() => import('src/content/auth/login')));
+const Signup = Loader(lazy(() => import('src/content/auth/singup')));
 // Dashboards
 
 const Tasks = Loader(lazy(() => import('src/content/dashboards/Tasks')));
@@ -99,6 +104,7 @@ const routes = [
             path: '404',
             element: <Status404 />
           },
+          
           {
             path: '500',
             element: <Status500 />
@@ -119,6 +125,30 @@ const routes = [
       }
     ]
   },
+
+
+  {
+    path: 'auth',
+    element: <BaseLayout />,
+    children: [
+      {
+        path: '',
+        element: <Navigate to='login' replace />
+      },
+      {
+        path: 'login',
+        element: <Login />
+      },
+
+      {
+        path: 'signup',
+        element: <Signup />
+      },
+      
+    ]
+  },
+
+
   {
     path: 'dashboards',
     element: <SidebarLayout />,

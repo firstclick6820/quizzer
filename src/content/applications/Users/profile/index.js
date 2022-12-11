@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import Footer from 'src/components/Footer';
+
 
 import { Grid, Container } from '@mui/material';
 
@@ -59,7 +59,7 @@ function ManagementUserProfile() {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
+
     </>
   );
 }
