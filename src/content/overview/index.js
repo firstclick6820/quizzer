@@ -11,6 +11,8 @@ const OverviewWrapper = styled(Box)(
     flex: 1;
     overflow-x: hidden;
     align-items: center;
+    
+   
 `
 );
 
@@ -23,7 +25,7 @@ function Overview() {
       <Container maxWidth="lg" >
         <Box display="flex" justifyContent="center" py={0.5} alignItems="center" />
     
-        <Card sx={{ p: 10, mb: 10, borderRadius: 12 }}>
+        <Card sx={{ p: 10, borderRadius: 10 }}>
           <Hero />
         </Card>
       </Container>

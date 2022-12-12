@@ -35,7 +35,7 @@ const MuiAvatar = styled(Box)(
     width: ${theme.spacing(8)};
     height: ${theme.spacing(8)};
     border-radius: ${theme.general.borderRadius};
-    background-color: #e5f7ff;
+
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -43,8 +43,8 @@ const MuiAvatar = styled(Box)(
     margin: 0 auto ${theme.spacing(2)};
 
     img {
-      width: 60%;
-      height: 60%;
+      width: 100%;
+      height: 100%;
       display: block;
     }
 `
@@ -55,7 +55,7 @@ const JsAvatar = styled(Box)(
     width: ${theme.spacing(8)};
     height: ${theme.spacing(8)};
     border-radius: ${theme.general.borderRadius};
-    background-color: #fef8d8;
+  
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -63,8 +63,8 @@ const JsAvatar = styled(Box)(
     margin: 0 auto ${theme.spacing(2)};
 
     img {
-      width: 60%;
-      height: 60%;
+      width: 130%;
+      aspect-ratio:1/1;
       display: block;
     }
 `
@@ -98,7 +98,7 @@ function Hero() {
             <Button
               component={RouterLink}
               to="/auth/login"
-              size="large"
+              size="sm"
               variant="outlined">
               Sing in
             </Button>
@@ -106,7 +106,7 @@ function Hero() {
             <Button
               component={RouterLink}
               to="/auth/signup"
-              size="large"
+              size="sm"
               variant="outlined">
               Signup
             </Button>
@@ -117,38 +117,39 @@ function Hero() {
             <Grid item md={6}>
               <MuiAvatar>
                 <img
-                  src="/static/images/logo/material-ui.svg"
+                  src="/static/images/home/bulb.png"
                   alt="Material-UI"
                 />
               </MuiAvatar>
               <Typography variant="h4">
                 <Box sx={{ pb: 2 }}>
-                  <b>Powered by MUI (Material-UI)</b>
+                  <b>Quizzes</b>
                 </Box>
                 <Typography component="span" variant="subtitle2">
-                  A simple and customizable component library to build faster,
-                  beautiful, and accessible React apps.
+                  An Online Platform that change your life, save your time, and make your future.
                 </Typography>
               </Typography>
+              <RouterLink to="/quizzes">See All</RouterLink>
             </Grid>
             <Grid item md={6}>
               <JsAvatar>
                 <img
-                  src="/static/images/logo/javascript.svg"
+                  src="/static/images/home/home3.png"
                   alt="Javascript"
                 />
               </JsAvatar>
               <Typography variant="h4">
                 <Box sx={{ pb: 2 }}>
-                  <b>Built with Javascript</b>
+                  <b>Practices</b>
                 </Box>
                 <Typography component="span" variant="subtitle2">
-                  Tokyo Free React Admin Dashboard features a modern technology
-                  stack and is built with React + Javascript.
+                  Powerfull Digital Marketing Support to enhance auto sales schema.
                 </Typography>
               </Typography>
+              <RouterLink to="/practices">See All</RouterLink>
             </Grid>
           </Grid>
+
         </Grid>
       </Grid>
     </Container>

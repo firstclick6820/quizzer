@@ -6,6 +6,7 @@ import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
 
+
 const Loader = (Component) => (props) =>
   (
     <Suspense fallback={<SuspenseLoader />}>
@@ -17,7 +18,7 @@ const Loader = (Component) => (props) =>
 
 const Overview = Loader(lazy(() => import('src/content/overview')));
 
-
+const logged = false
 
 // Authentications
 const Login = Loader(lazy(() => import('src/content/auth/login')));
@@ -153,7 +154,7 @@ const routes = [
 
   {
     path: 'dashboards',
-    element: <SidebarLayout />,
+    element: logged ? <BaseLayout /> : <Login />,
     children: [
       {
         path: '',
@@ -202,7 +203,7 @@ const routes = [
   },
   {
     path: '/components',
-    element: <SidebarLayout />,
+    element: logged ? <SidebarLayout /> : <Login />,
     children: [
       {
         path: '',
