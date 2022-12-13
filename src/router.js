@@ -18,7 +18,6 @@ const Loader = (Component) => (props) =>
 
 const Overview = Loader(lazy(() => import('src/content/overview')));
 
-const logged = false
 
 // Authentications
 const Login = Loader(lazy(() => import('src/content/auth/login')));
@@ -41,6 +40,18 @@ const UserProfile = Loader(
 const UserSettings = Loader(
   lazy(() => import('src/content/applications/Users/settings'))
 );
+
+
+// Quizzes
+const Quizzes = Loader(
+  lazy(() => import('src/content/quizzes/Quizzes'))
+);
+
+
+
+
+
+
 
 // Components
 
@@ -153,8 +164,28 @@ const routes = [
 
 
   {
+    path: 'quizzes',
+    element:  <BaseLayout /> ,
+    children: [
+      {
+        path: '',
+        element: <Navigate to="home" replace />
+      },
+      {
+        path: 'home',
+        element: <Quizzes />
+      },
+      {
+        path: 'messenger',
+        element: <Messenger />
+      }
+    ]
+  },
+
+
+  {
     path: 'dashboards',
-    element: logged ? <BaseLayout /> : <Login />,
+    element:  <BaseLayout /> ,
     children: [
       {
         path: '',
@@ -203,7 +234,7 @@ const routes = [
   },
   {
     path: '/components',
-    element: logged ? <SidebarLayout /> : <Login />,
+    element: <SidebarLayout /> ,
     children: [
       {
         path: '',
