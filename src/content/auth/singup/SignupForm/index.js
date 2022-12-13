@@ -113,26 +113,26 @@ function SignupForm() {
                         <TextField
                           required
                           label="Firstname"
-                          name="firstname"
+                          name="first_name"
                           type="text"
                           onBlur={handleBlur}
                           onChange={handleChange}
-                          value={values.firstname}
-                          error={!!touched.firstname && !!errors.firstname}
-                          helperText={touched.firstname && errors.firstname}
+                          value={values.first_name}
+                          error={!!touched.first_name && !!errors.first_name}
+                          helperText={touched.first_name && errors.first_name}
                           
                         />
 
                         <TextField
                           required
                           label="Lastname"
-                          name="lastname"
+                          name="last_name"
                           type="text"
                           onBlur={handleBlur}
                           onChange={handleChange}
-                          value={values.lastname}
-                          error={!!touched.lastname && !!errors.lastname}
-                          helperText={touched.lastname && errors.lastname}
+                          value={values.last_name}
+                          error={!!touched.last_name && !!errors.last_name}
+                          helperText={touched.last_name && errors.last_name}
                           
                         />
 
@@ -252,13 +252,13 @@ const checkoutSchema = yup.object().shape({
                 .test('username', 'This username is already taken.', validateUsername),
     
 
-  firstname: yup
+  first_name: yup
                 .string()
                 .required("Firstname is required!")
                 .min(3, "Firstname should not be less then 3 characters.")
                 .max(20, "Firstname should not be more then 20 characters."),
 
-  lastname:  yup
+  last_name:  yup
                .string()
                .required("Lastname is required!")
                .min(3, "Lastname should not be less then 3 characters.")
@@ -293,8 +293,8 @@ const checkoutSchema = yup.object().shape({
 
 const initialValues = {
   username: "",
-  firstname: "",
-  lastname: "",
+  first_name: "",
+  last_name: "",
   email: "",
   password: "",
   confirm_password: "",
