@@ -4,6 +4,9 @@ import {Link} from 'react-router-dom'
 
 import StartIcon from '@mui/icons-material/Start';
 
+import { useNavigate } from "react-router-dom";
+
+
 import {
   Container,
   Grid,
@@ -22,8 +25,32 @@ import TextField from '@mui/material/TextField';
 // import Custom Components
 import SignupButtons from '../SignupButtons';
 
+// import axios to send data to the server
+import axios from 'axios'
+import { Formik } from 'formik';
+import * as yup from "yup";
 
 function SignupForm() {
+
+  const navigate = useNavigate();
+
+
+  const handleFormSubmit = (values, {resetForm}) => {
+  
+
+    axios.post('http://localhost:8000/users/register/', values)
+          .then((response) => {
+
+            resetForm();
+            navigate('/quizzes');
+            console.log(response)
+            
+          })
+          .catch((error) => {
+            console.log(error.message)
+          })
+  }
+
 
 
   return (
@@ -49,71 +76,121 @@ function SignupForm() {
             <Divider sx={{ my: 2.5}}>or</Divider>
 
             <Card>
-              
+            
+
 
           
               <CardContent>
-                <Box component="form" noValidate autoComplete="off" >
-                  <Box display="grid" justifyContent="space-between" gap={1.4} gridTemplateColumns="repeat(1, 1fr)">
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="Username"
-                      type="text"
-                    />
-
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="Firstname"
-                      type="text"
-                      
-                    />
-
-                    <TextField
-                      required
-                      id="outlined-required"
-                      label="Lastname"
-                      type="text"
-                      
-                    />
-
-
-                  <TextField
-                      required
-                      id="outlined-required"
-                      label="Email"
-                      type="email"
-                    />
+                <Formik
+                  onSubmit={handleFormSubmit}
+                  initialValues={initialValues}
+                  validationSchema={checkoutSchema}
                    
-                   
-                    <TextField
-                      id="outlined-password-input"
-                      label="Password"
-                      type="password"
-                      autoComplete="current-password"
-                    />
-                     <TextField
-                      id="outlined-password-input"
-                      label="Repeat-Password"
-                      type="password"
-                      autoComplete="current-password"
-                    />
-                    
-                    <Button variant='outlined' type="submit" endIcon={<StartIcon />}>
-                        Register 
-                    </Button>
+            
+                  >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleBlur,
+                    handleChange,
+                    handleSubmit,
+                  }) => (
+                    <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
+                      <Box display="grid" justifyContent="space-between" gap={1.4} gridTemplateColumns="repeat(1, 1fr)">
+                        <TextField
+                          required
+                          label="Username"
+                          name='username'
+                          type="text"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.username}
+                          error={!!touched.username && !!errors.username}
+                          helperText={touched.username && errors.username}
+                        />
 
-                    <Box display="flex" gap={1} justifyContent="center">
-                            <strong>Already have an account? </strong><Link to="/auth/login" >Login</Link>
+                        <TextField
+                          required
+                          label="Firstname"
+                          name="firstname"
+                          type="text"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.firstname}
+                          error={!!touched.firstname && !!errors.firstname}
+                          helperText={touched.firstname && errors.firstname}
+                          
+                        />
+
+                        <TextField
+                          required
+                          label="Lastname"
+                          name="lastname"
+                          type="text"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.lastname}
+                          error={!!touched.lastname && !!errors.lastname}
+                          helperText={touched.lastname && errors.lastname}
+                          
+                        />
+
+
+                      <TextField
+                          required
+                          label="Email"
+                          name='email'
+                          type="email"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.email}
+                          error={!!touched.email && !!errors.email}
+                          helperText={touched.email && errors.email}
+                        />
+                      
+                      
+                        <TextField
+                          required
+                          label="Password"
+                          name='password'
+                          type="password"
+                          autoComplete="current-password"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.password}
+                          error={!!touched.password && !!errors.password}
+                          helperText={touched.password && errors.password}
+                        />
+                        <TextField
+                        required
+                        label="Confirm-Password"
+                          name="confirm_password"
+                          type="password"
+                          autoComplete="confirm_password"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.confirm_password}
+                          error={!!touched.confirm_password && !!errors.confirm_password}
+                          helperText={touched.confirm_password && errors.confirm_password}
+                        />
+                        
+                        <Button variant='outlined' type="submit" endIcon={<StartIcon />}>
+                            Register 
+                        </Button>
+
+                        <Box display="flex" gap={1} justifyContent="center">
+                                <strong>Already have an account? </strong><Link to="/auth/login" >Login</Link>
+                        </Box>
+
+                      </Box>
+                
+          
+
+                      
                     </Box>
-
-                  </Box>
-             
-       
-
-                  
-                </Box>
+                )}
+                </Formik>
               </CardContent>
             </Card>
           </Grid>
@@ -126,3 +203,143 @@ function SignupForm() {
 }
 
 export default SignupForm;
+
+
+
+
+// create a custom validation function that makes an API call to check if the username is available
+const validateUsername = async (username) => {
+
+        const response = await axios.get(`http://localhost:8000/users/check_username/${username}/`);
+        const isUsernameAvailable = response.data.available;
+        
+        if (!isUsernameAvailable) {
+          throw new yup.ValidationError('This username is already taken.', username, 'username');
+        }
+      
+        return response
+};
+
+
+
+
+// create a custom validation function that makes an API call to check if the username is available
+const validateEmail = async (email) => {
+
+  const response = await axios.get(`http://localhost:8000/users/check_email/${email}/`);
+  const isEmailAvailable = response.data.available;
+  
+  if (!isEmailAvailable) {
+    throw new yup.ValidationError('This email is already taken.', email, 'email');
+  }
+
+  return response
+};
+
+
+
+
+
+const checkoutSchema = yup.object().shape({
+
+  username:  yup
+                .string()
+                .required('Username is required!')
+                .min(5, "Username should not be less then 5 characters.")
+                .max(20, "Username should not be more then 20 characters.")
+                .matches(/^[a-z]/, 'Username must start with a letter')
+                .matches(/^[a-zA-Z0-9_]+$/, 'Username must not contain special characters')
+                .test('username', 'This username is already taken.', validateUsername),
+    
+
+  firstname: yup
+                .string()
+                .required("Firstname is required!")
+                .min(3, "Firstname should not be less then 3 characters.")
+                .max(20, "Firstname should not be more then 20 characters."),
+
+  lastname:  yup
+               .string()
+               .required("Lastname is required!")
+               .min(3, "Lastname should not be less then 3 characters.")
+               .max(20, "Lastname should not be more then 20 characters."),
+
+  email:     yup
+               .string()
+               .email('Invalid email')
+               .matches(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,'Invalid email')
+               .required("Email is required!")
+               .test('email', 'This email is already taken.', validateEmail),
+  password:  yup
+               .string()
+               .required("Password is required")
+               .min(8, 'Password must be at least 8 characters.')
+               .max(32, "Password must not be more then 32 characters.")
+               .matches(/[0-9]/, 'Password must contain at least one digit')
+               .matches(/[@$!%*?&]/, 'Password must contain at least one special character')
+               .matches(/[A-Z]/, 'Password must contain at least one uppercase letter')
+               .matches(/[a-z]/, 'Password must contain at least one lowercase letter')
+               .matches(/[0-9]/, 'Password must contain at least one number')
+               .notOneOf([yup.ref('username'), yup.ref('email')], 'Password cannot be the same as username or email')
+               .required('Password is required'),
+
+
+  confirm_password: yup
+              .string()
+              .required("Confirm password is required")
+              .oneOf([yup.ref('password'), null], "Passwords must match!")
+
+});
+
+const initialValues = {
+  username: "",
+  firstname: "",
+  lastname: "",
+  email: "",
+  password: "",
+  confirm_password: "",
+};
+
+
+// const passwordSchema = Yup.string().test(
+//   'password-strength',
+//   'Your password is not strong enough',
+//   (value, formValues) => {
+//     // Check if the password contains at least one special character
+//     if (!/[!@#$%^&*]/.test(value)) {
+//       return false;
+//     }
+
+//     // Check if the password contains at least one uppercase letter
+//     if (!/[A-Z]/.test(value)) {
+//       return false;
+//     }
+
+//     // Check if the password contains at least one lowercase letter
+//     if (!/[a-z]/.test(value)) {
+//       return false;
+//     }
+
+//     // Check if the password contains at least one number
+//     if (!/[0-9]/.test(value)) {
+//       return false;
+//     }
+
+//     // Check if the password contains the username or email
+//     if (
+//       formValues.username &&
+//       value.includes(formValues.username)
+//     ) {
+//       return false;
+//     }
+//     if (
+//       formValues.email &&
+//       value.includes(formValues.email)
+//     ) {
+//       return false;
+//     }
+
+//     // Return true if the password is strong enough
+//     return true;
+//   }
+// );
