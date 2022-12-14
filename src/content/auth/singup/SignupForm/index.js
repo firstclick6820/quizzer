@@ -85,7 +85,7 @@ function SignupForm() {
   const handleFormSubmit = (values, {resetForm}) => {
   
 
-    axios.post(LOCAL_HOST_API_URL, values)
+    axios.post(`${LOCAL_HOST_API_URL}/users/register/`, values)
           .then((response) => {
 
             resetForm();
