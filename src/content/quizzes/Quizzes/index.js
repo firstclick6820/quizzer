@@ -32,6 +32,10 @@ import axios from 'axios';
 
 
 
+import { LOCAL_HOST_API_URL } from 'src/API_ENDPOINTS';
+
+
+
 
 function DashboardTasks() {
       const [quizz, setQuizzes] = useState([])
@@ -43,14 +47,17 @@ function DashboardTasks() {
       ]
      
 
+     
+      
+ 
 
  
 
 
-      const getDate = async () => {
-        axios.get('https://quizzer-backend.onrender.com/api/quizzes/')
+      const getData = async () => {
+        axios.get(`${LOCAL_HOST_API_URL}/api/quizzes/`)
              .then((response) => {
-                  
+    
               setQuizzes(response.data)
              })
              .catch((error)=> {
@@ -60,7 +67,7 @@ function DashboardTasks() {
       
 
       useEffect(() => (
-          getDate()
+          getData()
       ), [])
 
 

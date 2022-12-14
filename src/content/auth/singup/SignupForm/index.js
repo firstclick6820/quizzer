@@ -30,15 +30,62 @@ import axios from 'axios'
 import { Formik } from 'formik';
 import * as yup from "yup";
 
+
+
+// Import API EndPOINTS
+import { LOCAL_HOST_API_URL } from 'src/API_ENDPOINTS';
+
+
+
+
+
 function SignupForm() {
 
   const navigate = useNavigate();
+ 
 
 
+
+
+
+
+
+
+// for working with 2 api endpoints
+  // const  handleFormSubmit =(values, {resetForm}) => {
+  //   let isFirstEndpointWorking = true
+  //   // Use a ternary operator to check if the first endpoint is working
+  //   const apiEndpoint = isFirstEndpointWorking ? firstApiEndpoint : secondApiEndpoint;
+
+  //   axios.post(apiEndpoint,values)
+  //     .then(response => {
+  //       // do something with the response data
+  //           resetForm();
+  //           navigate('/quizzes');
+  //           console.log(response)
+  //     })
+  //     .catch(error => {
+  //       // handle the error
+  //       if (error.message === 'Network Error'){
+  //           isFirstEndpointWorking = false
+  //           axios.post(secondApiEndpoint, values).then((res)=> {
+  //             resetForm();
+  //             navigate('/quizzes');
+  //             console.log(res)
+            
+  //           })
+  //       }
+        
+  //     });
+  // }
+
+
+
+// For working with one api endpoint
   const handleFormSubmit = (values, {resetForm}) => {
   
 
-    axios.post('http://localhost:8000/users/register/', values)
+    axios.post(LOCAL_HOST_API_URL, values)
           .then((response) => {
 
             resetForm();
@@ -210,7 +257,7 @@ export default SignupForm;
 // create a custom validation function that makes an API call to check if the username is available
 const validateUsername = async (username) => {
 
-        const response = await axios.get(`http://localhost:8000/users/check_username/${username}/`);
+        const response = await axios.get(`${LOCAL_HOST_API_URL}/users/check_username/${username}/`);
         const isUsernameAvailable = response.data.available;
         
         if (!isUsernameAvailable) {
@@ -226,7 +273,7 @@ const validateUsername = async (username) => {
 // create a custom validation function that makes an API call to check if the username is available
 const validateEmail = async (email) => {
 
-  const response = await axios.get(`http://localhost:8000/users/check_email/${email}/`);
+  const response = await axios.get(`${LOCAL_HOST_API_URL}/users/check_email/${email}/`);
   const isEmailAvailable = response.data.available;
   
   if (!isEmailAvailable) {
